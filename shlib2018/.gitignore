@@ -4,6 +4,5 @@
 node_modules/
 dist/
 public.zip
-public
 npm-debug.log*
 package-lock.json
