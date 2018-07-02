@@ -1,0 +1,540 @@
+/**
+ * @name: common.less => 通用less
+ * @author: Xiaxs(xiaxiansheng@adinnet.cn)
+ */
+@import './Less-mixins.less';
+
+// =============== 重置部分标签默认样式 ================
+a {
+  text-decoration: none;
+}
+
+ul, ol {
+  padding-left: 0;
+  list-style: none;
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+input, 
+button {
+  -webkit-appearance: none;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+input,
+input:focus {
+  outline: none;
+}
+// =================== End ==================
+
+// variables
+@padPadding: 11px;
+@zIndex: 1;
+@headerHeight: 52px;
+@footerHeight: 433px;
+@m10: 10px;
+@m15: 15px;
+@m20: 20px;
+@m30: 30px;
+@border-gray: #e0e5e8;
+@fontC3: #333;
+@fontC9: #999;
+@blue: #4474ac;
+@ye: #bba37e;
+@bl1: #4573ab; // 借阅prop-a块的颜色
+
+@footerMargin: 60px;
+@padMargin: 15px;
+@mobilePadding: 10px; // 移动端横向padding
+@breadcrumbHeight: 40px;
+
+
+// 无数据提示
+.none-data {
+  position: relative;
+
+  &:before {
+    content: "暂无数据";
+    color: #666;
+  }
+}
+
+// ============= 图书详情 - 馆藏图书状态 ==================
+// 外借标签
+@generalLend: #5390d7;    // 普通外借
+@referenceLend: #5dc9a0;  // 参考外借
+@damage: #f6a623;         // 破损
+
+.tag-pc() {
+  padding: 1px 4px;
+  margin-left: 10px;
+  font-size: 12px;
+  .vertical-align(2.5px);
+}
+
+.tag-mobile() {
+  height: 20px;
+  line-height: 20px;
+  padding-right: 2px;
+  padding-left: 2px;
+  margin-left: 9px;
+  font-size: 10px;
+  white-space: nowrap;
+  .vertical-align(1px);
+}
+
+.lend { // 借出
+  border: 1px solid @generalLend;
+  color: @generalLend;
+}
+
+.return { // 归还
+  border: 1px solid @referenceLend;
+  color: @referenceLend;
+}
+
+.damage { // 破损
+  border: 1px solid @damage;
+  color: @damage;
+}
+
+// 普通外借
+.general-lend {
+  color: @generalLend;
+  border: 1px solid @generalLend;
+  .border-radius(2px);
+
+  // PC | Pad
+  @media only screen and (min-width: 768px) {
+    .tag-pc();
+  }
+
+  // Mobile
+  @media only screen and (max-width: 767px) {
+    .tag-mobile();
+  }
+}
+
+// 参考外借
+.reference-lend {
+  color: @referenceLend;
+  border: 1px solid @referenceLend;
+  .border-radius(2px);
+
+  // PC | Pad
+  @media only screen and (min-width: 768px) {
+    .tag-pc();
+  }
+
+  // Mobile
+  @media only screen and (max-width: 767px) {
+    .tag-mobile();
+  }
+}
+// ======================= End ==========================
+
+// ======================= 当前借阅图书状态 (即将到期、未超期、已超期) ======================
+@due: #42a8dd;
+@notOverdue: #5dc9a8;
+@overdue: #f97f50;
+
+.due {
+  color: @due;
+}
+
+.not-overdue {
+  color: @notOverdue;
+}
+
+.overdue {
+  color: @overdue;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: @zIndex;
+  background-color: rgba(0, 0, 0, .3);
+}
+// ======================= End ==========================
+
+// Mixins - Pad
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .unityPadding {
+    padding-left: @padMargin;
+  }
+
+  .padMargin {
+    padding-right: @padMargin;
+    padding-left: @padMargin;
+  }
+}
+
+.white-bg {
+  background-color: #fff;
+}
+
+.vertical-top {
+  .vertical-align(top);
+}
+
+.vertical-middle {
+  .vertical-align(middle);
+}
+
+.vertical-center {
+  .vertical-center(left);
+
+  a {
+    color: #fff;
+  }
+}
+
+.swiper-button-next, 
+.swiper-button-prev {
+  background-image: none;
+
+  .iconfont {
+    color: #fff;
+  }
+
+  // PC | Pad
+  @media only screen and (min-width: 768px) {
+    .iconfont {
+      font-size: 22px;
+    }
+  }
+
+  // Mobile
+  @media only screen and (max-width: 767px) {
+    .iconfont {
+      font-size: 11px;
+    }
+  }
+}
+
+// 活动中心列表
+.list-container {
+  > li {
+    border-bottom: 1px solid #eee;
+  }
+  // ================= @Media ==================
+  // PC | Pad
+  @media only screen and (min-width: 768px) {
+    > li {
+      padding-bottom: 31px;
+
+      + li {
+        padding-top: 31px;
+      }
+    }
+    
+  }
+
+  // Mobile
+  @media only screen and (max-width: 767px) {
+    > li {
+      padding-bottom: 15px;
+
+      + li {
+        padding-top: 15px;
+      }
+    }
+  }
+}
+
+// 活动中心排列布局
+.has-right-column {
+  // ================ @Media ==================
+  // PC | Pad - H
+  @media only screen and (min-width: 768px) {
+    @calendarWidth: 344px;
+
+    .list-container {
+      margin-right: @calendarWidth;
+      padding-right: 40px;
+    }
+
+    // 日历
+    .calendar {
+      float: right;
+      .size(@calendarWidth; 333px);
+      border: 1px solid #e0e0e0;
+    }
+  }
+
+  // Pad -V
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    @calendarWidth: 280px;
+
+    .list-container {
+      margin-right: @calendarWidth;
+      padding-right: 20px;
+
+      > li {
+        padding-bottom: 16px;
+      }
+    }
+
+    .calendar {
+      width: @calendarWidth;
+      height: 254px;
+    }
+  }
+}
+
+// 查看更多
+.view-more {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid #ccc;
+  .border-radius(2px);
+  color: #999;
+  text-align: center;
+
+  // ================== @Media ==================
+  // PC | Pad
+  @media only screen and (min-width: 768px) {
+    .size(100px; 30px);
+    margin-top: 40px;
+    line-height: 28px;
+    font-size: 14px;
+
+    .iconfont {
+      margin-left: 2px;
+      font-size: 12px;
+    }
+  }
+
+  // Mobile
+  @media only screen and (max-width: 767px) {
+    .size(90px; 27px);
+    margin-top: 15px;
+    font-size: 13px;
+    line-height: 25px;
+
+    &.no-more-data {
+      width: auto;
+      border: none;
+
+      .iconfont {
+        display: none;
+      }
+    }
+
+    .iconfont {
+      font-size: 10px;
+    }
+  }
+}
+
+// 图书详情 - 简介内容
+.about-content {
+  color: #666;
+
+  > p {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    + p {
+      margin-top: 25px;
+    }
+  }
+
+
+  // ============== @Media =================
+  // PC | Pad
+  @media only screen and (min-width: 768px) {
+    line-height: 29px;
+  }
+
+  // Mobile
+  @media only screen and (max-width: 767px) {
+    padding-right: @mobilePadding;
+    padding-left: @mobilePadding;
+
+    > p {
+      font-size: 13px;
+      line-height: 25px;
+
+      + p {
+        margin-top: 12px;
+      }
+    }
+  }
+}
+
+// 用户菜单
+.component-menuInner {
+
+  // 去除边框
+  &.last5 > a:nth-last-child(-n + 5),
+  &.last4 > a:nth-last-child(-n + 4),
+  &.last3 > a:nth-last-child(-n + 3),
+  &.last2 > a:nth-last-child(-n + 2),
+  &.last1 > a:nth-last-child(-n + 1) {
+    border-bottom: 0;
+  }
+
+  // PC 端为每排6个
+  &.lastAll > a:nth-last-child(-n + 6) {
+    border-bottom: none;
+  }
+  
+  // =============== 全部菜单 ================
+  &.menu1 {margin-top: 0;}
+
+  &.menu1 .iconfont {
+    color: #f7b366;
+  }
+
+  &.menu2 .iconfont {
+    color: #63bfce;
+  }
+
+  &.menu3 .iconfont {
+    color: #5cc8a8;
+  }
+  // ================= End ===================
+
+  a {
+    color: #666;
+    text-align: center;
+    border-bottom: 1px solid #e0e5e8;
+
+    .iconfont {
+      color: #4daada;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 0;
+      .text-overflow();
+    }
+  }
+
+  // ====================== @Media ======================
+  // PC | Pad
+  @media only screen and (min-width: 768px) {
+    margin-top: 43px;
+    overflow: hidden;
+
+    + .component-menuInner {margin-top: 20px;}
+
+    a {
+      height: 149px;
+      padding-top: 36px;
+      padding-bottom: 32px;
+      margin-top: -1px;
+      margin-bottom: -1px;
+      vertical-align: top;
+      font-size: 14px;
+
+      &:hover {
+        opacity: .8;
+      }
+
+      .iconfont {
+        font-size: 34px;
+      }
+
+      p {
+        margin-top: 12px;
+      }
+    }
+  }
+
+  // Mobile
+  @media only screen and (max-width: 767px) {
+
+    // Mobile 端为每排4个
+    &.lastAll > a:nth-last-child(-n + 4) {
+      border-bottom: none;
+    }
+
+    + .component-menuInner {margin-top: 10px;}
+
+    a {
+      padding: 22px 5px 19px;
+      margin-top: -1px;
+      margin-bottom: -1px;
+      font-size: 12px;
+
+      .iconfont {
+        font-size: 19px;
+      }
+
+      p {
+        margin-top: 9px;
+      }
+    }
+  }
+
+  // Pad
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    padding-right: @padMargin;
+    padding-left: @padMargin;
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  50% {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); 
+  } 
+}
+
+.ball-clip-rotate(@size: 30px; @color: #5390d7; @bold: 3px) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  .square(@size);
+  margin-top: -@size / 2;
+  margin-left: -@size / 2;
+  border-radius: 100%;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  border: @bold solid @color;
+  border-bottom-color: transparent;
+  background: transparent !important;
+  -webkit-animation: rotate 0.75s 0s linear infinite;
+          animation: rotate 0.75s 0s linear infinite; 
+}
+
+// 通用操作加载中提示
+.eventAction {
+  position: relative;
+
+  &:before {
+    content: "";
+    .ball-clip-rotate();
+  }
+}
