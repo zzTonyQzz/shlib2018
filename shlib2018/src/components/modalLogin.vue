@@ -14,7 +14,7 @@
           <input type="password" v-model="password" placeholder="请输入密码"><i class="iconfont icon-password"></i>
         </li>
         <li class="has-verify-code clearfix">
-          <span class="verify-code-container"><img class="verify-code" :src="verifyCodeImage" @click="getVerifyCode"/></span><input type="text" v-model="verifyCode" placeholder="请输入验证码" @keyup.enter="loginAction" ref="yzm"><i class="iconfont icon-verify-code"></i>
+          <span class="verify-code-container" @click="getVerifyCode"><img class="verify-code" :src="verifyCodeImage" /><br /><small>看不清换一张</small></span><input type="text" v-model="verifyCode" placeholder="请输入验证码" @keyup.enter="loginAction" ref="yzm"><i class="iconfont icon-verify-code"></i>
         </li>
       </ul>
       <div class="login-action">
@@ -415,7 +415,15 @@ export default {
     .verify-code-container {
       float: right;
       .size(98px; 43px);
-
+      > small {
+        display: inline-block ;
+        text-align: justify; 
+        width: 100%;     
+        height: 20px;   
+        padding: 3px 5px;
+        cursor: pointer;
+      }
+      > small:after{display: inline-block ; content: ''; padding-left: 100%; }
 
       > img {.square(100%);cursor: pointer;}
     }
